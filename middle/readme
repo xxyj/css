@@ -1,1 +1,82 @@
 介绍一些css上实现垂直居中的方法
+分两种情况，高度固定以及非固定
+一、高度固定：
+   1、绝对定位法，position：absolute ，left 50% ，top：50%，然后通过margin的负数为实际元素宽高的一半，来实现水平垂直居中
+      demo：
+         div{
+            position:absolute;
+            left:50%;
+            top:50%;
+            widht:100px;
+            height:100px;
+            margin:-50px 0 0 -50px;
+         }
+         兼容性：非常好
+   2、通过margin来实现高宽居中，设置元素高度，绝对定位，以及上下左右为0以及margin：auto即可居中
+      demo:
+        div{
+           position:absolute;
+           height:100px;
+           margin:auto;
+           left:0;
+           top:0;
+           right:0;
+           bottom:0;
+           overflow:hidden;//非必须
+        }
+        兼容性：ie8+
+        
+  二、高度不固定
+      1、绝对定位替代法：和绝对定位思路是一致的，但是用transform 替代margin负数
+      demo：
+        div{
+          position:absolute;(relative)
+          top:50%;
+          left:50%;
+          transform:translateX(-50%);//此处需要注意兼容性
+          transform:translateY(-50%);//此处需要注意兼容性
+        }
+        兼容性：需要兼容transForm
+        
+       2:伪元素inline-block 配合vertical-align 布局：
+         demo：
+           .outer：{
+              text-align:center;
+           }
+           .outer:before{
+             display:inline-block;
+             vertical-align:center;
+             height:100%;
+           }
+           .inner{
+             display:inline-block;
+             vertical-align:center;
+           }
+         
+        
+       3、table布局法：利用table-cell的布局方式以及属性vertical-align为middle实现布局;
+        demo:
+          .outer{
+               display: table-cell;
+              vertical-align: middle;
+          }
+          .inner{
+              margin:auto;
+          }
+          
+        4、flex 布局：利用flex实现垂直布局
+           demo：
+             .outer{
+                display: flex;
+                align-items: center; //垂直居中
+                justify-content: center;//水平居中
+                height:100px;
+                width:100px;
+                border:1px solid red;
+            }
+            .inner{
+                height:20px;
+                background: #ff00ff;;
+                width:20px;
+             }
+          
